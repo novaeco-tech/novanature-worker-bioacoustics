@@ -30,15 +30,15 @@ This worker consumes the `queue.nature.audio-analysis` queue managed by NovaNatu
 ```mermaid
 graph LR
     subgraph "The Forest (NovaInfra)"
-        Sensor[Solar Microphone] -->|Upload .WAV| S3[(Object Storage)]
-        Sensor -->|Event: New File| MQ[(RabbitMQ)]
+        Sensor[Solar Microphone] -->|Upload .WAV| S3[("Object Storage")]
+        Sensor -->|Event: New File| MQ[("RabbitMQ")]
     end
 
     subgraph "The Worker (NovaNature)"
         MQ -->|1. Consume Event| Worker[Bioacoustic Worker]
         Worker -->|2. Fetch Audio| S3
-        Worker -->|3. Pre-process| DSP[DSP Engine (Spectrogram)]
-        Worker -->|4. Inference| Mind[NovaMind (BirdNET/Rainforest Models)]
+        Worker -->|3. Pre-process| DSP["DSP Engine (Spectrogram)"]
+        Worker -->|4. Inference| Mind["NovaMind (BirdNET/Rainforest Models)"]
     end
 
     subgraph "Outputs"
